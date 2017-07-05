@@ -1,6 +1,6 @@
 {
   "name": "marcel-plugin-calendar",
-  "main": "marcel-plugin-calendar.html",
+  "main": "index.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "moment-element": "^2.0.0"
