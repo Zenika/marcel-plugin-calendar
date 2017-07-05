@@ -1,6 +1,7 @@
-<link rel="import" href="/bower_components/moment-element/moment-element.html">
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/moment-element/moment-element.html">
 
-<dom-module id="calendar-item">
+<dom-module id="marcel-plugin-calendar">
   <template>
     <style include="shared-styles"></style>
     <style>
@@ -65,7 +66,7 @@
   <script>
     (() => {
       class Calendar extends Polymer.Element {
-        static get is () { return 'calendar-item' }
+        static get is () { return 'marcel-plugin-calendar' }
 
         static get properties () {
           return {
