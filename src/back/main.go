@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"log"
+	"github.com/Zenika/marcel-plugin-calendar/src/back/agenda"
 )
 
 func main() {
