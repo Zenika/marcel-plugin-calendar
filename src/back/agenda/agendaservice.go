@@ -7,10 +7,9 @@ import (
 	"time"
 	"log"
 	"os"
-
-	"github.com/Zenika/marcel-plugin-calendar/back/auth"
 	"github.com/gorilla/mux"
 	"google.golang.org/api/calendar/v3"
+	"github.com/Zenika/marcel-plugin-calendar/src/back/auth"
 )
 
 var calendarService *calendar.Service
