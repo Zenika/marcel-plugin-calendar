@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	"time"
 	"log"
-	"os"
 	"github.com/gorilla/mux"
 	"google.golang.org/api/calendar/v3"
 	"github.com/Zenika/marcel-plugin-calendar/src/back/auth"
+	"time"
+	"os"
 )
 
 var calendarService *calendar.Service
@@ -29,22 +29,23 @@ func GetNextEvents(w http.ResponseWriter, r *http.Request) {
 
 	var agendaId = os.Getenv("MARCEL_AGENDA_ID")
 
-	//we want 'nbEvents' next events from today
+	//we want 'nbRequestedEvents' next events from today
 	vars := mux.Vars(r)
 	e := vars["nbEvents"]
-	nbEvents, _ := strconv.Atoi(e)
+	nbRequestedEvents, _ := strconv.Atoi(e)
 
-	if nbEvents > 0 {
+	if nbRequestedEvents > 0 {
 		var startTime time.Time = time.Now() //today
 
 		calendarEvents, err := calendarService.Events.List(agendaId).
 			SingleEvents(true).
 			TimeMin(startTime.Format(time.RFC3339)).
-			MaxResults(int64(nbEvents)).
+			MaxResults(int64(nbRequestedEvents)).
 			OrderBy("startTime").
 			Do()
 
 		if err != nil {
+			w.Write([]byte(err.Error()))
 			log.Fatal(err)
 		}
 
