@@ -1,17 +1,18 @@
 package main
 
 import (
-	"github.com/rs/cors"
+	"github.com/Zenika/marcel-plugin-calendar/src/back/agenda"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
+	"log"
 	"net/http"
 	"os"
-	"log"
-	"github.com/Zenika/marcel-plugin-calendar/src/back/agenda"
 )
 
-func main() {
+const SERVICE_URL = "/agenda/incoming/{nbEvents:[0-9]*}"
 
-	logFile := "marcel.plugins.official.agenda.log"
+func main() {
+	logFile := "/tmp/marcel.plugins.official.agenda.log"
 	f, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -20,16 +21,14 @@ func main() {
 	defer f.Close()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
+		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET"},
 		AllowCredentials: true,
 	})
 
 	r := mux.NewRouter()
-	s := r.PathPrefix("/plugins/official/").Subrouter()
-	s.HandleFunc("/agenda/incoming/{nbEvents:[0-9]*}", agenda.GetNextEvents).Methods("GET")
+	r.HandleFunc(SERVICE_URL, agenda.GetNextEvents).Methods("GET")
 	handler := c.Handler(r)
 
 	http.ListenAndServe(":8080", handler)
 }
-
