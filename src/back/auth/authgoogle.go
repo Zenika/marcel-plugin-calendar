@@ -12,17 +12,17 @@ import (
 var scopes = []string{"https://www.googleapis.com/auth/calendar"}
 var key []byte = nil
 
-func readKey() []byte {
-	var key, err = ioutil.ReadFile("/tmp/" + os.Getenv("GOOGLE_API_KEY_FILE"))
+func readKey(path string) []byte {
+	var k, err = ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return key
+	return k
 }
 
 func RequireGoogleClient() *http.Client {
 	if key == nil {
-		key = readKey()
+		key = readKey("/tmp/" + os.Getenv("GOOGLE_API_KEY_FILE"))
 	}
 	var googleOauthConfig, err = google.JWTConfigFromJSON(key, scopes...)
 	if err != nil {
