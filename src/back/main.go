@@ -9,7 +9,8 @@ import (
 	"os"
 )
 
-const SERVICE_URL = "/agenda/incoming/{nbEvents:[0-9]*}"
+const SERVICE_URL = "/agenda/incoming/"
+const SERVICE_ATTR = "{nbEvents:[0-9]*}"
 
 func main() {
 	logFile := "/tmp/marcel.plugins.official.agenda.log"
@@ -27,8 +28,12 @@ func main() {
 	})
 
 	r := mux.NewRouter()
-	r.HandleFunc(SERVICE_URL, agenda.GetNextEvents).Methods("GET")
+	SetRoutes(r)
 	handler := c.Handler(r)
 
 	http.ListenAndServe(":8080", handler)
+}
+
+func SetRoutes(r *mux.Router) {
+	r.HandleFunc(SERVICE_URL + SERVICE_ATTR, agenda.GetNextEvents).Methods("GET")
 }
