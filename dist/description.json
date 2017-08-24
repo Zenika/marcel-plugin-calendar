@@ -1,29 +1,24 @@
 {
-  "name": "Google Agenda Events",
+  "eltName": "marcel-plugin-calendar",
   "description": "Displays coming events from a Google Agenda",
   "frontend": {
-    "eltName": "marcel-plugin-calendar",
     "cols": 4,
     "rows": 1,
-    "fixedsized": 0,
     "props": [
       {
         "name": "url",
         "description": "Url of the server that sends the events",
         "type": "string",
-        "value": "http://localhost:5000"
+        "value": "http://localhost"
       }
     ]
   },
   "backend": {
-    "dockerhuburl":"",
-    "imagepath":"",
-    "ports": [
-      8080
-    ],
+    "dockerimage": "marcel_agenda_1.0.tar",
+    "port": 8080,
     "props": {
-      "MARCEL_AGENDA_ID" : "id_of_your_google_agenda",
-      "GOOGLE_API_KEY_FILE": "your_google_api_key_file"
+      "MARCEL_AGENDA_ID": "id_of_your_google_agenda",
+      "GOOGLE_API_KEY_FILE": "path_of_your_google_apikey_file"
     }
   }
 }
