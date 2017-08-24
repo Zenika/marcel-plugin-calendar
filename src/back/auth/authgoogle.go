@@ -22,7 +22,7 @@ func readKey(path string) []byte {
 
 func RequireGoogleClient() *http.Client {
 	if key == nil {
-		key = readKey("/tmp/" + os.Getenv("GOOGLE_API_KEY_FILE"))
+		key = readKey("/data/" + os.Getenv("GOOGLE_API_KEY_FILE"))
 	}
 	var googleOauthConfig, err = google.JWTConfigFromJSON(key, scopes...)
 	if err != nil {
